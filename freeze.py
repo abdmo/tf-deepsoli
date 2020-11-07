@@ -33,7 +33,7 @@ def freeze_session(session, keep_var_names=None, output_names=None, clear_device
                                                       output_names, freeze_var_names)
         return frozen_graph
 
-def freeze_graph(graph, session, output, save_pb_dir='./tf_model_pb', save_pb_name='frozen_model.pb', save_pb_as_text=False):
+def freeze_graph(graph, session, output, save_pb_dir='./models', save_pb_name='tf_frozen_model.pb', save_pb_as_text=False):
     with graph.as_default():
         graphdef_inf = tf.graph_util.remove_training_nodes(graph.as_graph_def())
         graphdef_frozen = tf.graph_util.convert_variables_to_constants(session, graphdef_inf, output)
@@ -46,7 +46,7 @@ tf.keras.backend.clear_session()
 # This line must be executed before loading Keras model.
 tf.keras.backend.set_learning_phase(0) 
 
-model = load_model('./model.hf')
+model = load_model('./models/keras_model.h5')
 print(model.outputs)
 print(model.inputs)
 
